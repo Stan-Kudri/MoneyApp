@@ -5,5 +5,7 @@ namespace Core.Components.UserItem
     public class Currency : Entity
     {
         public TypeCurrency Type { get; set; } = TypeCurrency.RUB;
+
+        public override string ToString() => Type.Name;
     }
 }

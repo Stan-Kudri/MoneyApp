@@ -7,6 +7,7 @@ namespace Core.Components.SmartEnum
         public static readonly TypeWallet Unknown = new TypeWallet("Unknown", 0);
         public static readonly TypeWallet Cash = new TypeWallet("Cash", 1);
         public static readonly TypeWallet Card = new TypeWallet("Card", 2);
+        public static readonly TypeWallet Debit = new TypeWallet("Debit", 3);
 
         public TypeWallet(string name, int value) : base(name, value)
         {

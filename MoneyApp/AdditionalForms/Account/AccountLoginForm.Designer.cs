@@ -1,6 +1,6 @@
-﻿namespace MoneyApp.AdditionalForms
+﻿namespace MoneyApp.AdditionalForms.Account
 {
-    partial class AccountLogin
+    partial class AccountLoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -145,16 +145,16 @@
             btnAction.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btnAction.UseAccentColor = false;
             btnAction.UseVisualStyleBackColor = true;
-            btnAction.Click += BtnAction_Click;
+            btnAction.Click += BtnActionUserID_Click;
             // 
-            // AccountLogin
+            // AccountLoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(400, 350);
             Controls.Add(tlpLogIn);
             MinimumSize = new Size(400, 350);
-            Name = "AccountLogin";
+            Name = "AccountLoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Log In";
             ((System.ComponentModel.ISupportInitialize)userModelBindingSource).EndInit();
@@ -163,11 +163,11 @@
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialTextBox tbLogin;
-        private MaterialSkin.Controls.MaterialTextBox tbPassword;
-        private TableLayoutPanel tlpLogIn;
-        private MaterialSkin.Controls.MaterialButton btnAction;
-        private MaterialSkin.Controls.MaterialTextBox tbConfirmationPass;
-        private BindingSource userModelBindingSource;
+        protected MaterialSkin.Controls.MaterialTextBox tbLogin;
+        protected MaterialSkin.Controls.MaterialTextBox tbPassword;
+        protected TableLayoutPanel tlpLogIn;
+        protected MaterialSkin.Controls.MaterialButton btnAction;
+        protected MaterialSkin.Controls.MaterialTextBox tbConfirmationPass;
+        protected BindingSource userModelBindingSource;
     }
 }

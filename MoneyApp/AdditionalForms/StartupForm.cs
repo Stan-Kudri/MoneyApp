@@ -1,5 +1,6 @@
-﻿using Core.Components.SmartEnum;
-using MaterialSkin.Controls;
+﻿using MaterialSkin.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using MoneyApp.AdditionalForms.Account;
 
 namespace MoneyApp.AdditionalForms
 {
@@ -13,26 +14,34 @@ namespace MoneyApp.AdditionalForms
             _serviceProvider = serviceProvider;
         }
 
+        public bool HasBeenLogIn { get; private set; } = false;
+
+        public Guid? UserId { get; private set; }
+
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            ShowFormLogIn(ActionsWithAccount.Input);
+            using var loginForm = _serviceProvider.GetRequiredService<Login>();
+            ShowFormLogIn(loginForm);
         }
 
         private void BtnRegistration_Click(object sender, EventArgs e)
         {
-            ShowFormLogIn(ActionsWithAccount.Create);
+            using var loginForm = _serviceProvider.GetRequiredService<Registration>();
+            ShowFormLogIn(loginForm);
         }
 
-        private void ShowFormLogIn(ActionsWithAccount actionsWithAccount)
+        private void ShowFormLogIn(AccountLoginForm accountLogin)
         {
-            var logInForm = new AccountLogin(actionsWithAccount, _serviceProvider);
-            Visible = false;
-            if (logInForm.ShowDialog() != DialogResult.OK)
+            Hide();
+            if (accountLogin.ShowDialog() == DialogResult.Cancel)
             {
-                Visible = true;
+                Show();
                 return;
             }
 
+            HasBeenLogIn = true;
+            UserId = accountLogin.UserID != Guid.Empty ? accountLogin.UserID : throw new Exception("Empty ID");
+            Close();
         }
     }
 }

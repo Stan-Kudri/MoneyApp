@@ -11,6 +11,11 @@ namespace Core.Components
         }
 
         public User(string username, string password, List<Wallet>? wallets = null)
+            : this(username, password, Guid.NewGuid(), wallets)
+        {
+        }
+
+        public User(string username, string password, Guid id, List<Wallet>? wallets = null)
         {
             if (username == null || username == string.Empty || username.Length < 1)
             {
@@ -23,6 +28,7 @@ namespace Core.Components
 
             Username = username;
             PasswordHash = password;
+            Id = id;
             Wallets = wallets;
         }
 

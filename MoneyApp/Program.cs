@@ -3,6 +3,8 @@ using Core.Service;
 using MaterialSkin;
 using Microsoft.Extensions.DependencyInjection;
 using MoneyApp.AdditionalForms;
+using MoneyApp.AdditionalForms.Account;
+using MoneyApp.AdditionalForms.AccountCash;
 using MoneyApp.Item;
 using MoneyApp.Message;
 
@@ -24,8 +26,14 @@ namespace MoneyApp
                 .AddSingleton(new FileDbContextFactory("DbUser.db"))
                 .AddScoped(e => e.GetRequiredService<FileDbContextFactory>().Create())
                 .AddScoped<UserService>()
+                .AddScoped<WalletService>()
+                .AddTransient<Login>()
+                .AddTransient<Registration>()
+                .AddTransient<MoneyAppForm>()
+                .AddTransient<AccountCashForm>()
                 .AddScoped<IMessageBox, MessageBoxProvider>()
-                .AddScoped<StartupForm>();
+                .AddTransient<StartupForm>()
+                .AddTransient<EditAccountCash>();
 
             var container = serviceCollection.BuildServiceProvider(new ServiceProviderOptions
             {
@@ -34,13 +42,33 @@ namespace MoneyApp
             });
 
             using var scope = container.CreateScope();
-
+            AppDomain.CurrentDomain.UnhandledException += (_, e) => OnUnhandledException(scope.ServiceProvider, e);
             var startupForm = scope.ServiceProvider.GetRequiredService<StartupForm>();
+
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(startupForm);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo700, Primary.BlueGrey700, Primary.Blue800, Accent.Indigo700, TextShade.WHITE);
+
             Application.Run(startupForm);
+
+            if (!startupForm.HasBeenLogIn)
+            {
+                return;
+            }
+
+            var userId = startupForm.UserId;
+            var moneyAppForm = scope.ServiceProvider.GetRequiredService<MoneyAppForm>();
+            moneyAppForm.Initialize(userId);
+            Application.Run(moneyAppForm);
+        }
+
+
+        private static void OnUnhandledException(IServiceProvider provider, UnhandledExceptionEventArgs e)
+        {
+            var messageBox = provider.GetRequiredService<IMessageBox>();
+            string errorMessage = "Unhandled exception:" + Environment.NewLine + e.ExceptionObject;
+            messageBox.ShowError(errorMessage);
         }
     }
 }
