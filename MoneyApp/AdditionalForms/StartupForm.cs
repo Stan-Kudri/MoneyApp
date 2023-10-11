@@ -20,13 +20,13 @@ namespace MoneyApp.AdditionalForms
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            using var loginForm = _serviceProvider.GetRequiredService<Login>();
+            using var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
             ShowFormLogIn(loginForm);
         }
 
         private void BtnRegistration_Click(object sender, EventArgs e)
         {
-            using var loginForm = _serviceProvider.GetRequiredService<Registration>();
+            using var loginForm = _serviceProvider.GetRequiredService<RegistrationForm>();
             ShowFormLogIn(loginForm);
         }
 

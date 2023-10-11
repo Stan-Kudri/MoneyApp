@@ -26,14 +26,14 @@ namespace MoneyApp
                 .AddSingleton(new FileDbContextFactory("DbUser.db"))
                 .AddScoped(e => e.GetRequiredService<FileDbContextFactory>().Create())
                 .AddScoped<UserService>()
-                .AddScoped<WalletService>()
-                .AddTransient<Login>()
-                .AddTransient<Registration>()
+                .AddTransient<LoginForm>()
+                .AddTransient<RegistrationForm>()
                 .AddTransient<MoneyAppForm>()
-                .AddTransient<AccountCashForm>()
                 .AddScoped<IMessageBox, MessageBoxProvider>()
                 .AddTransient<StartupForm>()
-                .AddTransient<EditAccountCash>();
+                .AddScoped<WalletService>()
+                .AddTransient<AddAccountsCashForm>()
+                .AddTransient<EditAccountCashForm>();
 
             var container = serviceCollection.BuildServiceProvider(new ServiceProviderOptions
             {

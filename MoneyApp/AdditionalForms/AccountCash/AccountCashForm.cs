@@ -13,7 +13,11 @@ namespace MoneyApp.AdditionalForms.AccountCash
         protected readonly AppDbContext _dbContext;
         protected readonly IMessageBox _messageBox;
 
-        protected Guid _userId;
+        protected Guid _userId = Guid.Empty;
+
+        private AccountCashForm()
+        {
+        }
 
         public AccountCashForm(IServiceProvider serviceProvider, IMessageBox messageBox, AppDbContext dbContext)
         {
@@ -22,8 +26,6 @@ namespace MoneyApp.AdditionalForms.AccountCash
             _messageBox = messageBox;
             _dbContext = dbContext;
         }
-
-        public void Initialize(Guid userId) => _userId = userId;
 
         protected TypeWallet SelectedTypeWallet =>
             cbTypeWallet.SelectedValue != null ? (TypeWallet)cbTypeWallet.SelectedValue : throw new Exception("Wrong combo box format");
@@ -98,6 +100,11 @@ namespace MoneyApp.AdditionalForms.AccountCash
             if (!decimal.TryParse(tbBalance.Text, out var balance))
             {
                 throw new Exception("Invalid balance format.");
+            }
+
+            if (_userId == Guid.Empty)
+            {
+                throw new Exception("The ID is set incorrectly.");
             }
 
             var accountModel = new AccountModel(tbName.Text, SelectedTypeWallet, SelectedTypeCurrency, balance, tbDescription.Text);

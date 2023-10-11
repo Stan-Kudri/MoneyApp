@@ -6,22 +6,21 @@ using Core.Service;
 
 namespace MoneyApp.AdditionalForms.Account
 {
-    public class Login : AccountLoginForm
+    public class RegistrationForm : AccountLoginForm
     {
-        public Login(
+        protected override ActionsWithAccount ActionsWithAccount => ActionsWithAccount.Registration;
+
+        public RegistrationForm(
             IServiceProvider serviceProvider,
             IMessageBox messageBox,
             AppDbContext appDbContext,
             UserService userService) : base(serviceProvider, messageBox, appDbContext, userService)
         {
-            tbConfirmationPass.Visible = false;
         }
-
-        protected override ActionsWithAccount ActionsWithAccount => ActionsWithAccount.LogIn;
 
         protected override bool ActionClick(User user, out string message)
         {
-            if (!IsInputFieldsFilled())
+            if (!IsCreateFieldsFilled())
             {
                 message = "Fill in the input fields.";
                 return false;
@@ -31,16 +30,24 @@ namespace MoneyApp.AdditionalForms.Account
                 message = "The password is not in the correct format.";
                 return false;
             }
-            else if (_userService.IsUserData(user))
+            else if (!EqualsPassword())
             {
-                message = "Invalid username or password.";
+                message = "The entered passwords do not match.";
+                return false;
+            }
+            else if (!_userService.IsFreeUsername(user))
+            {
+                message = "Username Busy, please select another username";
                 return false;
             }
 
             message = string.Empty;
+            _userService.Add(user);
             return true;
         }
 
-        private bool IsInputFieldsFilled() => tbLogin.Text.Length > 0 && tbPassword.Text.Length > 0;
+        private bool IsCreateFieldsFilled() => tbConfirmationPass.Text.Length > 1 && tbLogin.Text.Length > 0 && tbPassword.Text.Length > 0;
+
+        private bool EqualsPassword() => tbPassword.Text.Equals(tbConfirmationPass.Text);
     }
 }

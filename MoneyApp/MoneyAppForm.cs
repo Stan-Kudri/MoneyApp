@@ -35,7 +35,7 @@ namespace MoneyApp
 
         private void BtnAddItem_Click(object sender, EventArgs e)
         {
-            using var formAddAccountCash = _serviceProvider.GetRequiredService<AccountCashForm>();
+            using var formAddAccountCash = _serviceProvider.GetRequiredService<AddAccountsCashForm>();
             formAddAccountCash.Initialize(_idUser);
 
             if (formAddAccountCash.ShowDialog() == DialogResult.OK)
@@ -55,8 +55,8 @@ namespace MoneyApp
             }
 
             var item = _walletService.GetWallet(id);
-            var editItemForm = _serviceProvider.GetRequiredService<EditAccountCash>();
-            editItemForm.InitializeEditItem(item);
+            var editItemForm = _serviceProvider.GetRequiredService<EditAccountCashForm>();
+            editItemForm.Initialize(item);
 
             if (editItemForm.ShowDialog() == DialogResult.Yes)
             {

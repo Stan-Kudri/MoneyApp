@@ -8,14 +8,18 @@ using MoneyApp.Model.UserItem;
 
 namespace MoneyApp.AdditionalForms.Account
 {
-    public abstract partial class AccountLoginForm : MaterialForm
+    public partial class AccountLoginForm : MaterialForm
     {
-        protected abstract ActionsWithAccount ActionsWithAccount { get; }
+        protected virtual ActionsWithAccount ActionsWithAccount { get; }
 
         protected readonly IMessageBox _messageBox;
         protected readonly AppDbContext _dbContext;
         protected readonly UserService _userService;
         protected readonly IServiceProvider _serviceProvider;
+
+        private AccountLoginForm()
+        {
+        }
 
         public AccountLoginForm(
             IServiceProvider serviceProvider,
@@ -60,7 +64,11 @@ namespace MoneyApp.AdditionalForms.Account
             Close();
         }
 
-        protected abstract bool ActionClick(User user, out string message);
+        protected virtual bool ActionClick(User user, out string message)
+        {
+            message = "The class is the parent of the form without implementation.";
+            return false;
+        }
 
     }
 }

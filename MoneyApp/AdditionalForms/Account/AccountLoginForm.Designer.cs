@@ -2,10 +2,6 @@
 {
     partial class AccountLoginForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +22,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
             tbLogin = new MaterialSkin.Controls.MaterialTextBox();
@@ -169,5 +165,6 @@
         protected MaterialSkin.Controls.MaterialButton btnAction;
         protected MaterialSkin.Controls.MaterialTextBox tbConfirmationPass;
         protected BindingSource userModelBindingSource;
+        private System.ComponentModel.IContainer components;
     }
 }

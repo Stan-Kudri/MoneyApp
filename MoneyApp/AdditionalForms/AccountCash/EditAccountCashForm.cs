@@ -5,19 +5,19 @@ using MoneyApp.Model.Item.WalletItem;
 
 namespace MoneyApp.AdditionalForms.AccountCash
 {
-    public class EditAccountCash : AccountCashForm
+    public class EditAccountCashForm : AccountCashForm
     {
-        public EditAccountCash(IServiceProvider serviceProvider, IMessageBox messageBox, AppDbContext dbContext)
+        public EditAccountCashForm(IServiceProvider serviceProvider, IMessageBox messageBox, AppDbContext dbContext)
             : base(serviceProvider, messageBox, dbContext)
         {
         }
 
         public Wallet EditItem { get; private set; }
 
-        public void InitializeEditItem(Wallet item)
+        public void Initialize(Wallet item)
         {
             EditItem = item;
-            Initialize(item.UserId);
+            _userId = EditItem.UserId;
         }
 
         protected override void BtnSave_Click(object sender, EventArgs e)
@@ -43,6 +43,7 @@ namespace MoneyApp.AdditionalForms.AccountCash
 
         protected override void AccountCash_Load(object sender, EventArgs e)
         {
+
             itemsBSTypeWallet.DataSource = new SelectableTypeWallet();
             itemsBSCurrency.DataSource = new SelectableCurrencyWallet();
             SetupDefoultValue();
@@ -53,7 +54,7 @@ namespace MoneyApp.AdditionalForms.AccountCash
             tbBalance.Text = EditItem.Money.ToString();
             tbName.Text = EditItem.Name;
             tbDescription.Text = EditItem.Description;
-            cbCurrency.SelectedItem = EditItem.Currency.Type;
+            cbCurrency.SelectedItem = EditItem.Currency?.Type;
             cbTypeWallet.SelectedItem = EditItem.TypeWallet;
         }
 
