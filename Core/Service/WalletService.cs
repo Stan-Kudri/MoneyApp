@@ -57,6 +57,13 @@ namespace Core.Service
             return item.Count() == decimal.Zero ? new List<Wallet>() : item.ToList();
         }
 
+        public List<Wallet>? GetDebitList()
+        {
+            var item = _db.Wallet.Where(e => e.TypeWallet == TypeWallet.Debit).Select(e => e);
+
+            return item.Count() == decimal.Zero ? new List<Wallet>() : item.ToList();
+        }
+
         public Wallet GetWallet(Guid? id)
         {
             var item = _db.Wallet.FirstOrDefault(e => e.Id == id);
@@ -66,13 +73,6 @@ namespace Core.Service
             }
 
             return item;
-        }
-
-        public List<Wallet>? GetDebitList()
-        {
-            var item = _db.Wallet.Where(e => e.TypeWallet == TypeWallet.Debit).Select(e => e);
-
-            return item.Count() == decimal.Zero ? new List<Wallet>() : item.ToList();
         }
     }
 }

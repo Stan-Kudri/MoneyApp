@@ -39,8 +39,13 @@
             tbTransactionMoney = new MaterialSkin.Controls.MaterialTextBox2();
             tbDebitMoney = new MaterialSkin.Controls.MaterialTextBox2();
             tbComment = new MaterialSkin.Controls.MaterialTextBox();
+            btnOk = new MaterialSkin.Controls.MaterialButton();
+            btnCancle = new MaterialSkin.Controls.MaterialButton();
+            dateTimePicker = new DateTimePicker();
+            tlbTransactionMoneyButton = new TableLayoutPanel();
             tlpTypeTransaction.SuspendLayout();
             tlpTypeMoneyTransaction.SuspendLayout();
+            tlbTransactionMoneyButton.SuspendLayout();
             SuspendLayout();
             // 
             // tlpTypeTransaction
@@ -238,7 +243,7 @@
             // tbComment
             // 
             tbComment.AccessibleDescription = "";
-            tbComment.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbComment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbComment.AnimateReadOnly = false;
             tbComment.BorderStyle = BorderStyle.None;
             tbComment.Depth = 0;
@@ -255,21 +260,90 @@
             tbComment.Text = "";
             tbComment.TrailingIcon = null;
             // 
+            // btnOk
+            // 
+            btnOk.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnOk.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnOk.Depth = 0;
+            btnOk.Dock = DockStyle.Fill;
+            btnOk.HighEmphasis = true;
+            btnOk.Icon = null;
+            btnOk.Location = new Point(4, 6);
+            btnOk.Margin = new Padding(4, 6, 4, 6);
+            btnOk.MouseState = MaterialSkin.MouseState.HOVER;
+            btnOk.Name = "btnOk";
+            btnOk.NoAccentTextColor = Color.Empty;
+            btnOk.Size = new Size(82, 28);
+            btnOk.TabIndex = 0;
+            btnOk.Text = "OK";
+            btnOk.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnOk.UseAccentColor = false;
+            btnOk.UseVisualStyleBackColor = true;
+            // 
+            // btnCancle
+            // 
+            btnCancle.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnCancle.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnCancle.Depth = 0;
+            btnCancle.Dock = DockStyle.Fill;
+            btnCancle.HighEmphasis = true;
+            btnCancle.Icon = null;
+            btnCancle.Location = new Point(224, 6);
+            btnCancle.Margin = new Padding(4, 6, 4, 6);
+            btnCancle.MouseState = MaterialSkin.MouseState.HOVER;
+            btnCancle.Name = "btnCancle";
+            btnCancle.NoAccentTextColor = Color.Empty;
+            btnCancle.Size = new Size(82, 28);
+            btnCancle.TabIndex = 2;
+            btnCancle.Text = "Cancle";
+            btnCancle.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnCancle.UseAccentColor = false;
+            btnCancle.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker
+            // 
+            dateTimePicker.Dock = DockStyle.Fill;
+            dateTimePicker.Location = new Point(93, 8);
+            dateTimePicker.Margin = new Padding(3, 8, 3, 8);
+            dateTimePicker.Name = "dateTimePicker";
+            dateTimePicker.Size = new Size(124, 23);
+            dateTimePicker.TabIndex = 5;
+            // 
+            // tlbTransactionMoneyButton
+            // 
+            tlbTransactionMoneyButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tlbTransactionMoneyButton.ColumnCount = 3;
+            tlbTransactionMoneyButton.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlbTransactionMoneyButton.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            tlbTransactionMoneyButton.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlbTransactionMoneyButton.Controls.Add(dateTimePicker, 1, 0);
+            tlbTransactionMoneyButton.Controls.Add(btnCancle, 2, 0);
+            tlbTransactionMoneyButton.Controls.Add(btnOk, 0, 0);
+            tlbTransactionMoneyButton.Location = new Point(10, 320);
+            tlbTransactionMoneyButton.Name = "tlbTransactionMoneyButton";
+            tlbTransactionMoneyButton.RowCount = 1;
+            tlbTransactionMoneyButton.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlbTransactionMoneyButton.Size = new Size(310, 40);
+            tlbTransactionMoneyButton.TabIndex = 6;
+            // 
             // MoneyTransactionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(330, 320);
+            ClientSize = new Size(330, 365);
+            Controls.Add(tlbTransactionMoneyButton);
             Controls.Add(tbComment);
             Controls.Add(tlpTypeMoneyTransaction);
             Controls.Add(tlpTypeTransaction);
-            MinimumSize = new Size(330, 320);
+            MinimumSize = new Size(330, 365);
             Name = "MoneyTransactionForm";
             Text = "Transaction Money";
             tlpTypeTransaction.ResumeLayout(false);
             tlpTypeTransaction.PerformLayout();
             tlpTypeMoneyTransaction.ResumeLayout(false);
             tlpTypeMoneyTransaction.PerformLayout();
+            tlbTransactionMoneyButton.ResumeLayout(false);
+            tlbTransactionMoneyButton.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -286,5 +360,9 @@
         private MaterialSkin.Controls.MaterialTextBox tbComment;
         private MaterialSkin.Controls.MaterialTextBox2 tbTransactionMoney;
         private MaterialSkin.Controls.MaterialTextBox2 tbDebitMoney;
+        private MaterialSkin.Controls.MaterialButton btnOk;
+        private MaterialSkin.Controls.MaterialButton btnCancle;
+        private DateTimePicker dateTimePicker;
+        private TableLayoutPanel tlbTransactionMoneyButton;
     }
 }
