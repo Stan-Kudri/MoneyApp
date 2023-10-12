@@ -2,10 +2,6 @@
 {
     partial class AccountCashForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        protected System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -264,5 +260,6 @@
         protected BindingSource selectableCurrencyWalletBindingSource;
         protected BindingSource itemsBSCurrency;
         protected BindingSource accountModelBindingSource;
+        private System.ComponentModel.IContainer components;
     }
 }

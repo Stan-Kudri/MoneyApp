@@ -18,7 +18,7 @@ namespace MoneyApp.AdditionalForms.Account
         {
         }
 
-        protected override bool ActionClick(User user, out string message)
+        protected override bool Validate(User user, out string message)
         {
             if (!IsCreateFieldsFilled())
             {

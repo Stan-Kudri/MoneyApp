@@ -14,13 +14,9 @@ namespace MoneyApp.AdditionalForms.AccountCash
 
         public Wallet EditItem { get; private set; }
 
-        public void Initialize(Wallet item)
-        {
-            EditItem = item;
-            _userId = EditItem.UserId;
-        }
+        public void Initialize(Wallet item) => EditItem = item;
 
-        protected override void BtnSave_Click(object sender, EventArgs e)
+        protected override void Save()
         {
             if (!IsDataEntered(out var message))
             {
@@ -43,13 +39,12 @@ namespace MoneyApp.AdditionalForms.AccountCash
 
         protected override void AccountCash_Load(object sender, EventArgs e)
         {
-
             itemsBSTypeWallet.DataSource = new SelectableTypeWallet();
             itemsBSCurrency.DataSource = new SelectableCurrencyWallet();
             SetupDefoultValue();
         }
 
-        public void SetupDefoultValue()
+        private void SetupDefoultValue()
         {
             tbBalance.Text = EditItem.Money.ToString();
             tbName.Text = EditItem.Name;
@@ -76,7 +71,7 @@ namespace MoneyApp.AdditionalForms.AccountCash
 
             var accountModel = new AccountModel(tbName.Text, SelectedTypeWallet, SelectedTypeCurrency, balance, tbDescription.Text);
 
-            return new Wallet(accountModel.Name, SelectedTypeWallet, _userId, accountModel.Balance, currency, accountModel.Description, currency.Id, EditItem.Id);
+            return new Wallet(accountModel.Name, SelectedTypeWallet, EditItem.UserId, accountModel.Balance, currency, accountModel.Description, currency.Id, EditItem.Id);
         }
     }
 }

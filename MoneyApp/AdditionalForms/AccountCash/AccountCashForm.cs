@@ -13,11 +13,7 @@ namespace MoneyApp.AdditionalForms.AccountCash
         protected readonly AppDbContext _dbContext;
         protected readonly IMessageBox _messageBox;
 
-        protected Guid _userId = Guid.Empty;
-
-        private AccountCashForm()
-        {
-        }
+        private AccountCashForm() => InitializeComponent();
 
         public AccountCashForm(IServiceProvider serviceProvider, IMessageBox messageBox, AppDbContext dbContext)
         {
@@ -70,16 +66,10 @@ namespace MoneyApp.AdditionalForms.AccountCash
             return true;
         }
 
-        protected virtual void BtnSave_Click(object sender, EventArgs e)
-        {
-            if (!IsDataEntered(out var message))
-            {
-                _messageBox.ShowWarning(message);
-                return;
-            }
+        private void BtnSave_Click(object sender, EventArgs e) => Save();
 
-            DialogResult = DialogResult.OK;
-            Close();
+        protected virtual void Save()
+        {
         }
 
         protected virtual void AccountCash_Load(object sender, EventArgs e)
@@ -88,28 +78,6 @@ namespace MoneyApp.AdditionalForms.AccountCash
             itemsBSCurrency.DataSource = new SelectableCurrencyWallet();
         }
 
-        public virtual Wallet GetWallet()
-        {
-            var currency = _dbContext.Currency.FirstOrDefault(e => e.Type == SelectedTypeCurrency);
-
-            if (currency == null)
-            {
-                throw new Exception("Type of currency unknown");
-            }
-
-            if (!decimal.TryParse(tbBalance.Text, out var balance))
-            {
-                throw new Exception("Invalid balance format.");
-            }
-
-            if (_userId == Guid.Empty)
-            {
-                throw new Exception("The ID is set incorrectly.");
-            }
-
-            var accountModel = new AccountModel(tbName.Text, SelectedTypeWallet, SelectedTypeCurrency, balance, tbDescription.Text);
-
-            return new Wallet(accountModel.Name, SelectedTypeWallet, _userId, accountModel.Balance, currency, accountModel.Description, currency.Id);
-        }
+        public virtual Wallet GetWallet() => null;
     }
 }

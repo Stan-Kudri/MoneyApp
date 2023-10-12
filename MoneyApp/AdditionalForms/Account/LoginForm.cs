@@ -19,7 +19,7 @@ namespace MoneyApp.AdditionalForms.Account
 
         protected override ActionsWithAccount ActionsWithAccount => ActionsWithAccount.LogIn;
 
-        protected override bool ActionClick(User user, out string message)
+        protected override bool Validate(User user, out string message)
         {
             if (!IsInputFieldsFilled())
             {

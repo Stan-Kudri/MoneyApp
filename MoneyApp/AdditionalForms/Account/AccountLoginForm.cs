@@ -19,6 +19,7 @@ namespace MoneyApp.AdditionalForms.Account
 
         private AccountLoginForm()
         {
+            InitializeComponent();
         }
 
         public AccountLoginForm(
@@ -52,7 +53,7 @@ namespace MoneyApp.AdditionalForms.Account
         {
             var user = new UserModel(tbLogin.Text, tbPassword.Text).ToUser();
 
-            if (!ActionClick(user, out string message))
+            if (!Validate(user, out string message))
             {
                 _messageBox.ShowWarning(message);
                 return;
@@ -64,7 +65,7 @@ namespace MoneyApp.AdditionalForms.Account
             Close();
         }
 
-        protected virtual bool ActionClick(User user, out string message)
+        protected virtual bool Validate(User user, out string message)
         {
             message = "The class is the parent of the form without implementation.";
             return false;
